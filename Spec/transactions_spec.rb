@@ -18,10 +18,16 @@ RSpec.describe Transactions do
     expect(subject.balance).to eq 500
   end
 
-  it 'should record recent transactions' do
-      subject.deposit(100, 18/02/2018)
-      expect(subject.previous_transactions).to eq [{
-        date: '18/02/2018', credited: 100,debited: nil, balance: 100 }]
-    end
+  it 'should record recent credit transactions' do
+    subject.deposit(100, 18/02/2018)
+    expect(subject.previous_transactions).to eq [{
+    date: '18/02/2018', credited: 100, debited: nil, balance: 100 }]
+  end
+
+  it 'should record recent debit transactions' do
+    subject.withdraw(200, 19/02/2018)
+    expect(subject.previous_transactions).to eq [{
+    date: '19/02/2018', credited: nil, debited: 200, balance: -200 }]
+  end
 
 end
