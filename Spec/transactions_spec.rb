@@ -11,4 +11,10 @@ RSpec.describe Transactions do
     subject.deposit(100)
     expect(subject.balance).to eq 100
   end
+
+  it 'should allow customer to withdraw their previously deposited money' do
+    subject.deposit(1000)
+    subject.withdraw(500)
+    expect(subject.balance).to eq 500
+  end
 end
