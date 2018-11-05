@@ -8,13 +8,20 @@ RSpec.describe Transactions do
   end
 
   it 'should allow customer to deposit their hard earned money' do
-    subject.deposit(100)
+    subject.deposit(100, 18/02/2018)
     expect(subject.balance).to eq 100
   end
 
   it 'should allow customer to withdraw their previously deposited money' do
-    subject.deposit(1000)
-    subject.withdraw(500)
+    subject.deposit(1000, 18/02/2018)
+    subject.withdraw(500, 18/02/2018)
     expect(subject.balance).to eq 500
   end
+
+  it 'should record recent transactions' do
+      subject.deposit(100, 18/02/2018)
+      expect(subject.previous_transactions).to eq [{
+        date: '18/02/2018', credited: 100,debited: nil, balance: 100 }]
+    end
+
 end
