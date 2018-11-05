@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rubocop', '0.56.0'
+gem 'timecop'
 
 group :test do
   gem 'rspec'
