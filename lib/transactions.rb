@@ -34,6 +34,7 @@ class Transactions
   end
 
   def account_statement
+    @previous_transactions.reverse
     tp @previous_transactions, :date, :credit, :debit, :balance
   end
 end
