@@ -1,5 +1,7 @@
 require 'transactions'
 
+
+
 RSpec.describe Transactions do
   subject { described_class.new }
 
@@ -19,15 +21,31 @@ RSpec.describe Transactions do
   end
 
   it 'should record recent credit transactions' do
-    subject.deposit(100, 18/02/2018)
+    subject.deposit(100, Time.now.strftime("%d %m %y"))
     expect(subject.previous_transactions).to eq [{
-    date: '18/02/2018', credited: 100, debited: nil, balance: 100 }]
+    date: Time.now.strftime("%d %m %y"), credited: 100, debited: nil, balance: 100 }]
   end
 
   it 'should record recent debit transactions' do
-    subject.withdraw(200, 19/02/2018)
+    subject.withdraw(200, Time.now.strftime("%d %m %y"))
     expect(subject.previous_transactions).to eq [{
-    date: '19/02/2018', credited: nil, debited: 200, balance: -200 }]
+    date: Time.now.strftime("%d %m %y"), credited: nil, debited: 200, balance: -200 }]
+  end
+
+  it 'should record recent credit transactions' do
+    subject.deposit(100, Time.now.strftime("%d %m %y"))
+    expect(subject.previous_transactions).to eq [{
+    date: Time.now.strftime("%d %m %y"), credited: 100, debited: nil, balance: 100 }]
+  end
+
+  it 'should record multiple transactions' do
+    subject.deposit(2000, Time.now.strftime("%d %m %y"))
+    subject.withdraw(200, Time.now.strftime("%d %m %y"))
+    subject.withdraw(500, Time.now.strftime("%d %m %y"))
+    expect(subject.previous_transactions).to eq [{
+    date: Time.now.strftime("%d %m %y"), credited: 2000, debited: nil, balance: 2000 },{
+    date: Time.now.strftime("%d %m %y"), credited: nil, debited: 200, balance: 1800 },{
+    date: Time.now.strftime("%d %m %y"), credited: nil, debited: 500, balance: 1300 }]
   end
 
 end

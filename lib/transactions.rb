@@ -9,17 +9,26 @@ class Transactions
     @previous_transactions = []
   end
 
-  def deposit(amount, date)
+  def deposit(amount, transaction_date)
     @balance += amount
+    transaction_date = Time.now.strftime("%d %m %y")
     @previous_transactions
-    .push(date: '18/02/2018',
-          credited: amount,
+    .push(date: transaction_date,
           debited: nil,
-          balance: @balance)
+          credited: amount,
+          balance: @balance
+          )
   end
 
-  def withdraw(amount, date)
+  def withdraw(amount, transaction_date)
     @balance -= amount
+    transaction_date = Time.now.strftime("%d %m %y")
+    @previous_transactions
+    .push(date: transaction_date,
+          credited: nil,
+          debited: amount,
+          balance: @balance)
+
   end
 
 end
