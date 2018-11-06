@@ -1,12 +1,12 @@
-require 'account_statement'
-
-RSpec.describe Account_statement do
-  subject { described_class.new(date: '06 11 2018', debit: nil, credit: 2000, balance: 2000) }
-
-  it 'should display one previous transactions in the correct format(see below)' do
-    expect(subject.account_line).to eq '06 11 2018 || 2000 || || 2000'
-  end
-end
+# require 'account_statement'
+#
+# RSpec.describe Account_statement do
+#   subject { described_class.new(date: '06 11 2018', debit: nil, credit: 2000, balance: 2000) }
+#
+#   it 'should display one previous transactions in the correct format(see below)' do
+#     expect(subject.account_line).to eq '06 11 2018 || 2000 || || 2000'
+#   end
+# end
 
 # Correct format for printer
 
