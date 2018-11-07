@@ -7,8 +7,7 @@ RSpec.describe Account_statement do
 
   transaction_time = Time.now.strftime('%d %m %y')
   Timecop.freeze(transaction_time)
-
-  # let(:previous_transactions) {double :previous_transactions, date: 12/12/2018, debit: nil, credit: 2000, balance: 2000}
+  
   let(:bank) {double :bank, previous_transactions: [{date: transaction_time, debit: nil, credit: 2000, balance: 2000}] }
 
   subject { described_class.new(bank.previous_transactions) }
