@@ -10,7 +10,7 @@ class Account_statement
 
   def account_line
     puts "date || credit || debit || balance"
-    @previous_transactions.each do |statement|
+    @previous_transactions.reverse_each do |statement|
     puts "#{statement[:date]} || #{statement[:credit]} ||#{statement[:debit]} || #{statement[:balance]}"
     end
 end
