@@ -1,5 +1,4 @@
 require 'time'
-require 'table_print'
 require_relative 'account_statement'
 
 # Transactions class which stores balance and deals with deposits & withdrawals.
@@ -13,7 +12,7 @@ class Transactions
 
   def deposit(amount)
     @balance += amount
-    transaction_date = Time.now.strftime('%d %m %y')
+    transaction_date = Time.now
     @previous_transactions << {
       date: transaction_date,
       debit: ' ',
@@ -24,7 +23,7 @@ class Transactions
 
   def withdraw(amount)
     @balance -= amount
-    transaction_date = Time.now.strftime('%d %m %y')
+    transaction_date = Time.now
     @previous_transactions << {
       date: transaction_date,
       credit: ' ',
@@ -33,8 +32,4 @@ class Transactions
     }
   end
 
-  def account_statement
-    @previous_transactions.reverse
-    tp @previous_transactions, :date, :credit, :debit, :balance
-  end
 end
