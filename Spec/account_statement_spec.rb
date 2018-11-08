@@ -13,6 +13,6 @@ RSpec.describe Account_statement do
   subject { described_class.new(bank.previous_transactions) }
 
   it 'should display previous transactions in the correct format(see below)' do
-    expect {subject.account_line}.to output("date || credit || debit || balance\n#{transaction_time} || 2000 || || 2000\n").to_stdout
+    expect {subject.account_line}.to output("date || credit || debit || balance\n#{transaction_time} || 2000.00 || || 2000.00\n").to_stdout
 end
 end
