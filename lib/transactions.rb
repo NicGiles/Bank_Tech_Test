@@ -3,14 +3,19 @@ require_relative 'account_statement'
 
 # Transactions class which stores balance and deals with deposits & withdrawals.
 class Transactions
-  attr_reader :balance, :previous_transactions
+  attr_reader :balance
 
-  def initialize
+  def initialize(statement = Account_statement.new)
     @balance = 0
     @previous_transactions = []
+    @statement = statement
   end
 
-  def deposit(amount, transaction_date)
+  def print_statement
+    @statement.account_line(@previous_transactions)
+  end
+
+  def deposit(amount)
     @balance += amount
     transaction_date = Time.now.strftime('%d %m %y')
     @previous_transactions << {
@@ -21,7 +26,7 @@ class Transactions
     }
   end
 
-  def withdraw(amount, transaction_date)
+  def withdraw(amount)
     @balance -= amount
     transaction_date = Time.now.strftime('%d %m %y')
     @previous_transactions << {
@@ -31,5 +36,4 @@ class Transactions
       balance: @balance
     }
   end
-
 end
