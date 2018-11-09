@@ -1,6 +1,8 @@
 require 'transactions'
 require 'Timecop'
 
+OVERDRAFT = 1000
+
 RSpec.describe Transactions do
   subject { described_class.new(statement) }
 
@@ -31,6 +33,12 @@ it 'should allow customer to withdraw their previously deposited money' do
   it 'should record recent debit transactions' do
     expect(subject.withdraw(200)).to eq [{ balance: -200, credit: ' ', date: transaction_time, debit: 200 }]
   end
+
+  it 'should prevent withdrawals beyond overdraft limit' do
+    subject.withdraw(OVERDRAFT)
+    expect { subject.withdraw 1 }.to raise_error("Withdrawal blocked. Overdraft limit breached")
+  end
+
 end
 
 describe "Deposit & Withdraw" do
