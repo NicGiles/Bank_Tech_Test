@@ -1,8 +1,6 @@
 require 'account_statement'
 require 'Timecop'
 
-
-
 RSpec.describe Account_statement do
 
   transaction_time = Time.now.strftime('%d %m %y')
