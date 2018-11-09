@@ -36,7 +36,15 @@ it 'should allow customer to withdraw their previously deposited money' do
 
   it 'should prevent withdrawals beyond overdraft limit' do
     subject.withdraw(OVERDRAFT)
-    expect { subject.withdraw 1 }.to raise_error("Withdrawal blocked. Overdraft limit breached")
+    expect { subject.withdraw 1 }.to raise_error("Withdrawal blocked. You have reached your overdraft limit of -£#{OVERDRAFT}")
+  end
+
+  it 'should allow withdrawals up to overdraft limit' do
+    subject.withdraw(OVERDRAFT-200)
+    expect { subject.withdraw 201 }.to raise_error("Withdrawal blocked. You have reached your overdraft limit of -£#{OVERDRAFT}")
+    expect(subject.balance).to eq -800
+    subject.withdraw(200)
+    expect(subject.balance).to eq -1000
   end
 
 end
@@ -48,6 +56,12 @@ it 'should record transaction history across multiple transactions' do
   subject.withdraw(200)
   expect(subject.withdraw(500)).to eq [{ balance: 2000, credit: 2000, date: transaction_time, debit: ' ' }, { balance: 1800, credit: ' ', date: transaction_time, debit: 200 }, { balance: 1300, credit: ' ', date: transaction_time, debit: 500 }]
 end
+#
+# it 'should allow customers ' do
+#   subject.withdraw(OVERDRAFT)
+#   expect { subject.withdraw 1 }.to raise_error("Withdrawal blocked. You have reached your overdraft limit of £#{OVERDRAFT}")
+# end
+
 end
 
 describe 'Print statement' do
