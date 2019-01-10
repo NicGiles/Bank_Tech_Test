@@ -1,43 +1,69 @@
-Bank tech test
+Bank Tech Test in Ruby
 
-Tech Test ReadMe
+Usage
 
-- Git clone https://github.com/NicGiles/Bank_Tech_Test
-- Bundle Install
+Installation
+To use this app first clone the app:
 
-- To Test Criteria Using Feature Test: Enter Rspec Spec/feature_test_walkthrough_spec.rb into command line.
-This test is designed to replicate the conditions set out in the original project ReadMe, such that the programme outputs the following;
-date || credit || debit || balance
-14/01/2012 || || 500.00 || 2500.00
-13/01/2012 || 2000.00 || || 3000.00
-10/01/2012 || 1000.00 || || 1000.00
+Git clone https://github.com/NicGiles/Bank_Tech_Test
 
-- To test the programme manually
-- Enter 'irb' into the command line and then enter the following steps;
-- require './lib/transactions'
-- bank = Transactions.new
-- bank.deposit(1000, 10/01/2012)
-- bank.deposit(2000, 13/01/2012)
-- bank.withdraw(500, 14/01/2018)
-- statement = Account_statement.new(bank.previous_transactions)
-- statement.account_line
+Run Rspec within the root folder.
+There should be 12 tests in total, all passing, which cover 100% code line coverage.
 
-You should see the following
+Using the bank account
+To manually test the bank's functionality, perform the following :
 
-date || credit || debit || balance
-07 11 18 ||   ||500 || 2500
-07 11 18 || 2000 ||  || 3000
-07 11 18 || 1000 ||  || 1000
+$ irb
+$ require './lib/transactions'
+$ bank = Transactions.new
 
-Limitations:
+You now have a bank account which can be used to deposit and withdraw, as well as record transactions.
 
-- Programme is set up to enter the current date upon each transaction, hence the 07/11/18 (today's date) seen above.
-- Programme is missing the 2 decimal formatting. This was due to issues when attempting to format 'nil' for deposits and withdrawals.
+$ account.deposit(500)
+$ account.withdraw(200)
+$ account.deposit(2000)
+
+You can then view a transactions log using the following:
+
+$ bank.print_statement
+
+$ #=> date || credit || debit  || balance
+$ #=> 10/01/2019 || 500.00 ||  || 500.00
+$ #=> 10/01/2019 ||  || 200.00 || 300.00
+$ #=> 10/01/2019 || 2000.00 || || 2300.00
+
+There is also an overdraft facility on the account, with a default value of 1000.
+
+If a user attempts to withdraw enough money to take their account beyond their overdraft limit, they will receive the following warning.
+
+account.withdraw(3301)
+
+(Withdrawal blocked. You have reached your overdraft limit of -£1000)
 
 
-Future Plans:
+The deposit and withdraw methods take one parameter each, the amount of money involved. The date is then autofiled by the account to the date of transaction.
 
-- As well as the two issues mentioned above I plan to implement the following features;
+The print_statement method takes no parameters.
 
-- Edge Cases. Should be able to check formatting of user entry.
-- Overdraft. Users should be able to have a negative bank balance, up until the limit of their overdraft.
+
+
+User Stories
+I withdrew the following User Stories from the brief
+(found here - https://github.com/makersacademy/course/blob/master/individual_challenges/bank_tech_test.md)
+
+As a bank user
+So that I can deposit my money
+I want to be able to deposit cash to the bank
+
+As a bank user
+So that I can withdraw money
+I want to be able to withdraw cash from the bank
+
+As a bank user
+So that I can keep track of my previous transactions
+I want to be able to see a printed statement with my previous deposits, withdrawals and ongoing balance
+
+As a bank
+So that I can keep track of my customer's money
+I want to be able to store transactions in memory
+
